@@ -16,15 +16,13 @@ package main
 
 import (
 	"flag"
-  "fmt"
-	"log"
 	"net/http"
   "os"
 
+  "github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-var addr = flag.String("listen-address", ":8080", "The address to listen on for HTTP requests.")
 var hostname = getHostname()
 
 func getHostname() string {
@@ -35,28 +33,21 @@ func getHostname() string {
   return name
 }
 
-// logging from: https://gist.github.com/hoitomt/c0663af8c9443f2a8294
-func logRequest(handler http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("%s %s %s %s", hostname, r.RemoteAddr, r.Method, r.URL)
-		handler.ServeHTTP(w, r)
-	})
+func helloFunc(c *gin.Context) {
+  c.Writer.Header().Set("X-Hostname", hostname)
+  c.String(http.StatusOK, "Hello, World!")
 }
 
-func helloFunc(w http.ResponseWriter, r *http.Request) {
-  w.Header().Set("X-Hostname", hostname)
-  fmt.Fprintf(w, "Hello, World!\n")
-}
-
-func healthFunc(w http.ResponseWriter, r *http.Request) {
-  w.Header().Set("X-Hostname", hostname)
+func healthFunc(c *gin.Context) {
+  c.Writer.Header().Set("X-Hostname", hostname)
+  c.String(http.StatusOK, "")
 }
 
 func main() {
 	flag.Parse()
-	http.HandleFunc("/", helloFunc)
-	http.HandleFunc("/health", healthFunc)
-	http.Handle("/metrics", promhttp.Handler())
-  log.Printf("%s listening on %s", hostname, *addr)
-	log.Fatal(http.ListenAndServe(*addr, logRequest(http.DefaultServeMux)))
+  router := gin.Default()
+  router.GET("/", helloFunc)
+  router.GET("/health", healthFunc)
+  router.GET("/metrics", gin.WrapH(promhttp.Handler()))
+  router.Run()
 }
