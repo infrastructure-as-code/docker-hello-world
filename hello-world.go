@@ -35,19 +35,28 @@ func getHostname() string {
   return name
 }
 
-func helloHandler(w http.ResponseWriter, r *http.Request) {
+// logging from: https://gist.github.com/hoitomt/c0663af8c9443f2a8294
+func logRequest(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s %s %s %s", hostname, r.RemoteAddr, r.Method, r.URL)
+		handler.ServeHTTP(w, r)
+	})
+}
+
+func helloFunc(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("X-Hostname", hostname)
   fmt.Fprintf(w, "Hello, World!\n")
 }
 
-func healthHandler(w http.ResponseWriter, r *http.Request) {
+func healthFunc(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("X-Hostname", hostname)
 }
 
 func main() {
 	flag.Parse()
-	http.HandleFunc("/", helloHandler)
-	http.HandleFunc("/health", healthHandler)
+	http.HandleFunc("/", helloFunc)
+	http.HandleFunc("/health", healthFunc)
 	http.Handle("/metrics", promhttp.Handler())
-	log.Fatal(http.ListenAndServe(*addr, nil))
+  log.Printf("%s listening on %s", hostname, *addr)
+	log.Fatal(http.ListenAndServe(*addr, logRequest(http.DefaultServeMux)))
 }
