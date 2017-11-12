@@ -1,5 +1,9 @@
-language: python
+language: go
+go:
+- 1.8
+- 1.9
 services:
-  - docker
+- docker
 script:
-  - docker build -t infrastructureascode/hello-world .
+- make all
+- docker build --rm -t infrastructureascode/hello-world .

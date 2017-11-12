@@ -2,12 +2,13 @@
 
 FROM golang:1.9.2 AS builder
 WORKDIR /go/src/github.com/infrastructure-as-code/docker-hello-world
-COPY hello-world.go .
-RUN go get -d
-RUN CGO_ENABLED=0 GOOS=linux go build -a hello-world.go
+ENV GIN_MODE debug
+COPY Makefile *.go ./
+RUN make all
 
 FROM scratch
 LABEL maintainer "Vince Tse <thelazyenginerd@gmail.com>"
-COPY --from=builder /go/src/github.com/infrastructure-as-code/docker-hello-world/hello-world .
+COPY --from=builder /go/src/github.com/infrastructure-as-code/docker-hello-world/hello_world .
+ENV GIN_MODE release
 EXPOSE 8080
-ENTRYPOINT ["/hello-world"]
+ENTRYPOINT ["/hello_world"]

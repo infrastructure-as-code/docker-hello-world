@@ -42,12 +42,16 @@ func healthFunc(c *gin.Context) {
   c.String(http.StatusOK, "")
 }
 
-func main() {
+func setupRouter() *gin.Engine {
   router := gin.Default()
   ginprom := ginprometheus.NewPrometheus("gin")
   ginprom.Use(router)
   router.GET("/", helloFunc)
   router.GET("/health", healthFunc)
-  //router.GET("/metrics", gin.WrapH(promhttp.Handler()))
+  return router
+}
+
+func main() {
+  router := setupRouter()
   router.Run()
 }
