@@ -19,7 +19,7 @@ import (
   "os"
 
   "github.com/gin-gonic/gin"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
+  "github.com/zsais/go-gin-prometheus"
 )
 
 var hostname = getHostname()
@@ -44,8 +44,10 @@ func healthFunc(c *gin.Context) {
 
 func main() {
   router := gin.Default()
+  ginprom := ginprometheus.NewPrometheus("gin")
+  ginprom.Use(router)
   router.GET("/", helloFunc)
   router.GET("/health", healthFunc)
-  router.GET("/metrics", gin.WrapH(promhttp.Handler()))
+  //router.GET("/metrics", gin.WrapH(promhttp.Handler()))
   router.Run()
 }
