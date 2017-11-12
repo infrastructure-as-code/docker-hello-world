@@ -15,7 +15,6 @@
 package main
 
 import (
-	"flag"
 	"net/http"
   "os"
 
@@ -44,7 +43,6 @@ func healthFunc(c *gin.Context) {
 }
 
 func main() {
-	flag.Parse()
   router := gin.Default()
   router.GET("/", helloFunc)
   router.GET("/health", healthFunc)
