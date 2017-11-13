@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/infrastructure-as-code/docker-hello-world.svg?branch=master)](https://travis-ci.org/infrastructure-as-code/docker-hello-world)
+
 # infrastructureascode/hello-world
 
 A [Prometheus](https://prometheus.io/)-instrumented Docker "Hello World" web server.
