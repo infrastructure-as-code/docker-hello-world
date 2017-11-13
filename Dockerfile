@@ -1,10 +1,14 @@
-FROM alpine
+# Copied from https://github.com/prometheus/client_golang/blob/master/examples/simple/Dockerfile
 
-RUN apk update && \
-    apk upgrade && \
-    apk add nginx && \
-    mkdir -p /run/nginx
+FROM golang:1.9.2 AS builder
+WORKDIR /go/src/github.com/infrastructure-as-code/docker-hello-world
+ENV GIN_MODE debug
+COPY Makefile *.go ./
+RUN make all
 
-COPY default.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD nginx -g "daemon off;"
+FROM scratch
+LABEL maintainer "Vince Tse <thelazyenginerd@gmail.com>"
+COPY --from=builder /go/src/github.com/infrastructure-as-code/docker-hello-world/hello_world .
+ENV GIN_MODE release
+EXPOSE 8080
+ENTRYPOINT ["/hello_world"]
