@@ -3,8 +3,12 @@
 FROM golang:1.9.2 AS builder
 WORKDIR /go/src/github.com/infrastructure-as-code/docker-hello-world
 ENV GIN_MODE debug
+ENV DEBIAN_FRONTEND noninteractive
 COPY Makefile *.go ./
-RUN make all
+RUN apt-get update && \
+	apt-get upgrade -y && \
+	apt-get install -y upx && \
+	make all
 
 FROM scratch
 LABEL maintainer "Vince Tse <thelazyenginerd@gmail.com>"

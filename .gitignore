@@ -12,3 +12,7 @@ Session.vim
 *~
 # auto-generated tag files
 tags
+
+# build artifacts
+hello_world
+docker-hello-world

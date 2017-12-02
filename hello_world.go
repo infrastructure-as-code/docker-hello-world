@@ -19,6 +19,10 @@ func getHostname() string {
 	return name
 }
 
+func getVersion() string {
+	return "$Id$"
+}
+
 func helloFunc(c *gin.Context) {
 	c.Writer.Header().Set("X-Hostname", hostname)
 	c.String(http.StatusOK, "Hello, World!")
@@ -29,6 +33,11 @@ func healthFunc(c *gin.Context) {
 	c.String(http.StatusOK, "")
 }
 
+func versionFunc(c *gin.Context) {
+	c.Writer.Header().Set("X-Hostname", hostname)
+	c.String(http.StatusOK, getVersion())
+}
+
 func setupRouter(routePrefix string) *gin.Engine {
 	router := gin.Default()
 	ginprom := ginprometheus.NewPrometheus("gin")
@@ -37,6 +46,7 @@ func setupRouter(routePrefix string) *gin.Engine {
 
 	rg := router.Group(routePrefix)
 	rg.GET("/", helloFunc)
+	rg.GET("/version", versionFunc)
 	return router
 }
 
