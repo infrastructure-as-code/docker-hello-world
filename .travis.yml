@@ -3,5 +3,9 @@ go:
 - 1.8
 - 1.9
 - master
+addons:
+  apt:
+    packages:
+    - upx
 script:
 - make all
