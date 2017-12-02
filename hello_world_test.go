@@ -9,7 +9,7 @@ import (
 )
 
 func TestDefaultRoute(t *testing.T) {
-	router := setupRouter()
+	router := setupRouter("/")
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/", nil)
@@ -20,7 +20,7 @@ func TestDefaultRoute(t *testing.T) {
 }
 
 func TestHealthRoute(t *testing.T) {
-	router := setupRouter()
+	router := setupRouter("/")
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/health", nil)
@@ -31,11 +31,23 @@ func TestHealthRoute(t *testing.T) {
 }
 
 func TestMetricsRoute(t *testing.T) {
-	router := setupRouter()
+	router := setupRouter("/")
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/metrics", nil)
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, 200, w.Code)
+}
+
+func TestRoutePrefix(t *testing.T) {
+	prefix := "/foobar/"
+	router := setupRouter(prefix)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", prefix, nil)
+	router.ServeHTTP(w, req)
+
+	assert.Equal(t, 200, w.Code)
+	assert.Equal(t, "Hello, World!", w.Body.String())
 }

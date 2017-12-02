@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"net/http"
 	"os"
 
@@ -28,16 +29,21 @@ func healthFunc(c *gin.Context) {
 	c.String(http.StatusOK, "")
 }
 
-func setupRouter() *gin.Engine {
+func setupRouter(routePrefix string) *gin.Engine {
 	router := gin.Default()
 	ginprom := ginprometheus.NewPrometheus("gin")
 	ginprom.Use(router)
-	router.GET("/", helloFunc)
 	router.GET("/health", healthFunc)
+
+	rg := router.Group(routePrefix)
+	rg.GET("/", helloFunc)
 	return router
 }
 
 func main() {
-	router := setupRouter()
+	optRoutePrefix := flag.String("route-prefix", "/", "Route prefix")
+	flag.Parse()
+
+	router := setupRouter(*optRoutePrefix)
 	router.Run()
 }
