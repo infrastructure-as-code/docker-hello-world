@@ -5,6 +5,12 @@ all: deps test
 test:
 	GIN_MODE=debug go test
 
+lint:
+	test -z `gofmt -s -l .`
+	go vet ./...
+	golint -set_exit_status `go list ./...`
+
 deps:
 	go get -d
 	go get github.com/stretchr/testify
+	go get github.com/golang/lint/golint
