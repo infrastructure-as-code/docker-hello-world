@@ -9,14 +9,15 @@ import (
 	"github.com/zsais/go-gin-prometheus"
 )
 
-var hostname = getHostname()
-
-func getHostname() string {
-	var name, err = os.Hostname()
+func ServiceInfoMiddleware() gin.HandlerFunc {
+	var hostname, err = os.Hostname()
 	if err != nil {
 		panic(err)
 	}
-	return name
+  return func(c *gin.Context) {
+    c.Writer.Header().Set("X-Hostname", hostname)
+    c.Next()
+  }
 }
 
 func getVersion() string {
@@ -24,17 +25,14 @@ func getVersion() string {
 }
 
 func helloFunc(c *gin.Context) {
-	c.Writer.Header().Set("X-Hostname", hostname)
 	c.String(http.StatusOK, "Hello, World!")
 }
 
 func healthFunc(c *gin.Context) {
-	c.Writer.Header().Set("X-Hostname", hostname)
 	c.String(http.StatusOK, "")
 }
 
 func versionFunc(c *gin.Context) {
-	c.Writer.Header().Set("X-Hostname", hostname)
 	c.String(http.StatusOK, getVersion())
 }
 
@@ -42,6 +40,7 @@ func setupRouter(routePrefix string) *gin.Engine {
 	router := gin.Default()
 	ginprom := ginprometheus.NewPrometheus("gin")
 	ginprom.Use(router)
+  router.Use(ServiceInfoMiddleware())
 	router.GET("/health", healthFunc)
 
 	rg := router.Group(routePrefix)
