@@ -1,16 +1,10 @@
-all: deps lint test
+all: deps test
 	CGO_ENABLED=0 go build -a -o hello_world
 	upx --brute hello_world
 
 test:
 	GIN_MODE=debug go test
 
-lint:
-	test -z `gofmt -s -l .`
-	go vet ./...
-	golint -set_exit_status `go list ./...`
-
 deps:
 	go get -d
 	go get github.com/stretchr/testify
-	go get github.com/golang/lint/golint
