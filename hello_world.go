@@ -14,10 +14,10 @@ func ServiceInfoMiddleware() gin.HandlerFunc {
 	if err != nil {
 		panic(err)
 	}
-  return func(c *gin.Context) {
-    c.Writer.Header().Set("X-Hostname", hostname)
-    c.Next()
-  }
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("X-Hostname", hostname)
+		c.Next()
+	}
 }
 
 func getVersion() string {
@@ -40,7 +40,7 @@ func setupRouter(routePrefix string) *gin.Engine {
 	router := gin.Default()
 	ginprom := ginprometheus.NewPrometheus("gin")
 	ginprom.Use(router)
-  router.Use(ServiceInfoMiddleware())
+	router.Use(ServiceInfoMiddleware())
 	router.GET("/health", healthFunc)
 
 	rg := router.Group(routePrefix)
