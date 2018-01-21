@@ -3,7 +3,6 @@
 FROM golang:1.9.2-alpine AS builder
 WORKDIR /go/src/github.com/infrastructure-as-code/docker-hello-world
 ENV GIN_MODE debug
-ENV DEBIAN_FRONTEND noninteractive
 COPY Makefile *.go ./
 RUN apk update && \
 	apk upgrade && \
