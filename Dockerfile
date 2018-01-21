@@ -1,13 +1,15 @@
 # Copied from https://github.com/prometheus/client_golang/blob/master/examples/simple/Dockerfile
 
-FROM golang:1.9.2 AS builder
+FROM golang:1.9.2-alpine AS builder
 WORKDIR /go/src/github.com/infrastructure-as-code/docker-hello-world
 ENV GIN_MODE debug
 ENV DEBIAN_FRONTEND noninteractive
 COPY Makefile *.go ./
-RUN apt-get update && \
-	apt-get upgrade -y && \
-	apt-get install -y upx && \
+RUN apk update && \
+	apk upgrade && \
+	apk add \
+		git \
+		make && \
 	make all
 
 FROM scratch
