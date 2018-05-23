@@ -38,7 +38,7 @@ func versionFunc(c *gin.Context) {
 }
 
 func envsFunc(c *gin.Context) {
-	c.String(http.StatusOK, fmt.Sprintf("CHAMBER_SECRET: %[1]*", os.Getenv("CHAMBER_SECRET")))
+	c.String(http.StatusOK, fmt.Sprintf("CHAMBER_SECRET: %[1]s", os.Getenv("CHAMBER_SECRET")))
 }
 
 func setupRouter(routePrefix string) *gin.Engine {
