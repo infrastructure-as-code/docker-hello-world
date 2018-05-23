@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -36,6 +37,10 @@ func versionFunc(c *gin.Context) {
 	c.String(http.StatusOK, getVersion())
 }
 
+func envsFunc(c *gin.Context) {
+	c.String(http.StatusOK, fmt.Sprintf("CHAMBER_SECRET: %[1]*", os.Getenv("CHAMBER_SECRET")))
+}
+
 func setupRouter(routePrefix string) *gin.Engine {
 	router := gin.Default()
 	ginprom := ginprometheus.NewPrometheus("gin")
@@ -46,6 +51,7 @@ func setupRouter(routePrefix string) *gin.Engine {
 	rg := router.Group(routePrefix)
 	rg.GET("/", helloFunc)
 	rg.GET("/version", versionFunc)
+	rg.GET("/envs", envsFunc)
 	return router
 }
 
