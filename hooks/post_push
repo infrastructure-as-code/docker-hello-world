@@ -4,13 +4,8 @@ set -euxo pipefail
 curl -sLo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.3/manifest-tool-linux-amd64
 chmod +x manifest-tool
 
-TAG=${SOURCE_BRANCH}
-if [[ "${SOURCE_BRANCH}" == "master" ]]; then
-  TAG=latest
-fi
-
 ./manifest-tool push from-args \
     --platforms linux/amd64,linux/arm/v6,linux/arm64/v8 \
-    --template ${DOCKER_REPO}:${TAG}-ARCHVARIANT \
-    --target ${DOCKER_REPO}:${TAG} \
+    --template ${DOCKER_REPO}:${SOURCE_BRANCH}-ARCHVARIANT \
+    --target ${DOCKER_REPO}:${SOURCE_BRANCH} \
     --ignore-missing
