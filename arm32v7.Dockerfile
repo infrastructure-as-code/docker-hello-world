@@ -12,7 +12,7 @@ RUN	apk upgrade
 RUN	apk add alpine-sdk
 RUN make all
 
-FROM scratch
+FROM arm32v7/alpine:latest
 LABEL maintainer "Vince Tse <vincetse@users.noreply.github.com>"
 COPY --from=builder /go/src/github.com/infrastructure-as-code/docker-hello-world/hello_world .
 ENV GIN_MODE release
