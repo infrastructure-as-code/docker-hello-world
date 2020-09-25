@@ -20,4 +20,3 @@ docker-hello-world
 # multi-arch builds
 manifest-tool
 manifest-tool-*
-hooks
