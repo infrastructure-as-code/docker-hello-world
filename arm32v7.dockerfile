@@ -1,6 +1,6 @@
 # Copied from https://github.com/prometheus/client_golang/blob/master/examples/simple/Dockerfile
 
-FROM amd64/golang:1.15-alpine AS builder
+FROM arm32v6/golang:1.15-alpine AS builder
 WORKDIR /go/src/github.com/infrastructure-as-code/docker-hello-world
 ENV GIN_MODE debug
 COPY Makefile *.go ./

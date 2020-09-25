@@ -1,0 +1,15 @@
+image: infrastructureascode/hello-world
+manifests:
+  - platform:
+      architecture: amd64
+      os: linux
+
+  - platform:
+      architecture: arm
+      os: linux
+      ariant: v6
+
+  - platform:
+      architecture: arm
+      os: linux
+      ariant: v7

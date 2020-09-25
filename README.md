@@ -35,3 +35,7 @@ curl http://0.0.0.0:8000/health
 # curl Prometheus metrics
 curl http://0.0.0.0:8000/metrics
 ```
+
+## References
+
+1. https://github.com/ckulka/docker-multi-arch-example
