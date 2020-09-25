@@ -1,4 +1,4 @@
-image: infrastructureascode/hello-world:latest
+image: infrastructureascode/hello-world:multi-arch
 manifests:
   - image: infrastructureascode/hello-world:amd64
     platform:
