@@ -1,15 +1,18 @@
-image: infrastructureascode/hello-world
+image: infrastructureascode/hello-world:latest
 manifests:
-  - platform:
+  - image: infrastructureascode/hello-world:amd64
+    platform:
       architecture: amd64
       os: linux
 
-  - platform:
+  - image: infrastructureascode/hello-world:arm32v6
+    platform:
       architecture: arm
       os: linux
       ariant: v6
 
-  - platform:
+  - image: infrastructureascode/hello-world:arm32v7
+    platform:
       architecture: arm
       os: linux
       ariant: v7
