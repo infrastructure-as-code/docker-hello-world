@@ -16,3 +16,7 @@ tags
 # build artifacts
 hello_world
 docker-hello-world
+
+# multi-arch builds
+manifest-tool
+manifest-tool-*

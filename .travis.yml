@@ -2,4 +2,4 @@ services:
 - docker
 language: bash
 script:
-- docker build --rm -t hello-world .
+- docker build --file amd64.Dockerfile --rm -t hello-world .
