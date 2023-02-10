@@ -1,4 +1,4 @@
-module github.com/alexmeuer/docker-hello-world
+module github.com/infrastructure-as-code/docker-hello-world
 
 go 1.19
 
