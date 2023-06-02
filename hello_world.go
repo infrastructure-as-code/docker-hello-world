@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/zsais/go-gin-prometheus"
+	ginprometheus "github.com/zsais/go-gin-prometheus"
 )
 
 func serviceInfoMiddleware() gin.HandlerFunc {
@@ -41,6 +41,9 @@ func setupRouter(routePrefix string) *gin.Engine {
 	ginprom := ginprometheus.NewPrometheus("gin")
 	ginprom.Use(router)
 	router.Use(serviceInfoMiddleware())
+	router.Use(func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	})
 	router.GET("/health", healthFunc)
 
 	rg := router.Group(routePrefix)
