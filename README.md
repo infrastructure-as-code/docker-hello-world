@@ -2,7 +2,7 @@
 
 # ghcr.io/infrastructure-as-code/hello-world
 
-A [Prometheus](https://prometheus.io/)-instrumented Docker "Hello World" web server.  This image began life as [infrastructureascode/hello-world](https://hub.docker.com/r/infrastructureascode/hello-world) on Docker Hub, but has since been migrated to the GitHub Container Registry.
+A [Prometheus](https://prometheus.io/)-instrumented Docker "Hello World" web server.  This image began life as [infrastructureascode/hello-world](https://hub.docker.com/r/infrastructureascode/hello-world) on Docker Hub, but has since been migrated to the GitHub Container Registry.  The image is now `ghcr.io/infrastructure-as-code/hello-world`.
 
 ## Features
 
