@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/vincetse/docker-hello-world/actions/workflows/build-images.yml/badge.svg)](https://github.com/vincetse/docker-hello-world/actions/workflows/build-images.yml)
+[![Build Status](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/build-images.yml/badge.svg?branch=master)](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/build-images.yml)
 
 # ghcr.io/infrastructure-as-code/hello-world
 
