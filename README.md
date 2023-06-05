@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/infrastructure-as-code/docker-hello-world.svg?branch=master)](https://travis-ci.org/infrastructure-as-code/docker-hello-world)
+[![Build Status](https://github.com/vincetse/docker-hello-world/actions/workflows/build-images.yml/badge.svg)](https://github.com/vincetse/docker-hello-world/actions/workflows/build-images.yml)
 
-# infrastructureascode/hello-world
+# ghcr.io/infrastructure-as-code/hello-world
 
-A [Prometheus](https://prometheus.io/)-instrumented Docker "Hello World" web server.
+A [Prometheus](https://prometheus.io/)-instrumented Docker "Hello World" web server.  This image began life as [infrastructureascode/hello-world](https://hub.docker.com/r/infrastructureascode/hello-world) on Docker Hub, but has since been migrated to the GitHub Container Registry.
 
 ## Features
 
@@ -13,7 +13,7 @@ A [Prometheus](https://prometheus.io/)-instrumented Docker "Hello World" web ser
 ## Building
 
 ```
-docker build --rm -t infrastructureascode/hello-world .
+docker build --rm -t ghcr.io/infrastructure-as-code/hello-world .
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ docker run \
   --detach \
   --name hello-world \
   --publish 8000:8080 \
-  infrastructureascode/hello-world
+  ghcr.io/infrastructure-as-code/hello-world
 
 # curl the container
 curl http://0.0.0.0:8000/

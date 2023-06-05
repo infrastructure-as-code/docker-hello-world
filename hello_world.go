@@ -2,8 +2,10 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"net/http"
 	"os"
+	"runtime"
 
 	"github.com/gin-gonic/gin"
 	ginprometheus "github.com/zsais/go-gin-prometheus"
@@ -54,8 +56,16 @@ func setupRouter(routePrefix string) *gin.Engine {
 
 func main() {
 	optRoutePrefix := flag.String("route-prefix", "/", "Route prefix")
+	optVersion := flag.Bool("version", false, "Print version")
 	flag.Parse()
 
-	router := setupRouter(*optRoutePrefix)
-	router.Run()
+	if *optVersion {
+		fmt.Fprintf(os.Stderr, "Version: %s\nArch: %s\n",
+			getVersion(),
+			runtime.GOARCH,
+		)
+	} else {
+		router := setupRouter(*optRoutePrefix)
+		_ = router.Run()
+	}
 }
