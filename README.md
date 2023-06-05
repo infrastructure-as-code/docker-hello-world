@@ -16,6 +16,13 @@ A [Prometheus](https://prometheus.io/)-instrumented Docker "Hello World" web ser
 docker build --rm -t ghcr.io/infrastructure-as-code/hello-world .
 ```
 
+## Releases
+
+Images are [built with GitHub Actions](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/build-images.yml) upon tagging/push, and pushed directly to the GitHub Container Registry.  You can look at the [packages page](https://github.com/infrastructure-as-code/docker-hello-world/pkgs/container/hello-world) for the latest tagged version.
+
+Additionally, the `sha1sum` of the binary in each image is emitted during the build process (look for "Show binary info") in the build logs in case provenance is a concern.
+
+
 ## Usage
 
 ```

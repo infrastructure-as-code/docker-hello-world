@@ -78,7 +78,7 @@ jobs:
         run: |
           export GOOS=linux GOARCH=${{ matrix.goarch }}
           CGO_ENABLED=0 go build -a -o hello_world
-      - name: Should binary info
+      - name: Show binary info
         run: |
           file hello_world
           sha1sum hello_world
