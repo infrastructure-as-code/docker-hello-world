@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: vincetse/hello-world
+  IMAGE_NAME: infrastructure-as-code/hello-world
 
 jobs:
   check:
