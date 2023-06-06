@@ -1,5 +1,0 @@
-services:
-- docker
-language: bash
-script:
-- docker build --file amd64.Dockerfile --rm -t hello-world .

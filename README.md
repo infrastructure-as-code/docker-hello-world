@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/infrastructure-as-code/docker-hello-world.svg?branch=master)](https://travis-ci.org/infrastructure-as-code/docker-hello-world)
+[![Build Status](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/build-images.yml/badge.svg?branch=master)](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/build-images.yml)
 
-# infrastructureascode/hello-world
+# ghcr.io/infrastructure-as-code/hello-world
 
-A [Prometheus](https://prometheus.io/)-instrumented Docker "Hello World" web server.
+A [Prometheus](https://prometheus.io/)-instrumented Docker "Hello World" web server.  This image began life as [infrastructureascode/hello-world](https://hub.docker.com/r/infrastructureascode/hello-world) on Docker Hub, but has since been migrated to the GitHub Container Registry.  The image is now `ghcr.io/infrastructure-as-code/hello-world`.
 
 ## Features
 
@@ -13,8 +13,15 @@ A [Prometheus](https://prometheus.io/)-instrumented Docker "Hello World" web ser
 ## Building
 
 ```
-docker build --rm -t infrastructureascode/hello-world .
+docker build --rm -t ghcr.io/infrastructure-as-code/hello-world .
 ```
+
+## Releases
+
+Images are [built with GitHub Actions](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/build-images.yml) upon tagging/push, and pushed directly to the GitHub Container Registry.  You can look at the [packages page](https://github.com/infrastructure-as-code/docker-hello-world/pkgs/container/hello-world) for the latest tagged version.
+
+Additionally, the `sha1sum` of the binary in each image is emitted during the build process (look for "Show binary info") in the build logs in case provenance is a concern.
+
 
 ## Usage
 
@@ -24,7 +31,7 @@ docker run \
   --detach \
   --name hello-world \
   --publish 8000:8080 \
-  infrastructureascode/hello-world
+  ghcr.io/infrastructure-as-code/hello-world
 
 # curl the container
 curl http://0.0.0.0:8000/
