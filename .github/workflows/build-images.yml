@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: infrastructure-as-code/hello-world
+  IMAGE_NAME: ${{ github.repository_owner }}/hello-world
 
 jobs:
   check:
