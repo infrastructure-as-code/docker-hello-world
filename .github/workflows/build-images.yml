@@ -189,3 +189,44 @@ jobs:
         name: Inspect image
         run: |
           docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}
+
+  # run the Buildx-built images as a sanity check
+  test-run:
+    runs-on: ubuntu-latest
+    needs:
+      - merge
+    permissions:
+      contents: read
+      packages: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux/amd64
+            dockerenv:
+          - platform: linux/arm/v6
+            dockerenv: -e QEMU_CPU=arm1176
+          - platform: linux/arm/v8
+            dockerenv: -e QEMU_CPU=cortex-a53
+
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+            type=raw,value=${{ github.ref_name }}
+
+      - name: Docker run
+        run: |
+          docker run --rm \
+            --tty \
+            --platform ${{ matrix.platform }} \
+            ${{ matrix.dockerenv }} \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }} \
+            --version
