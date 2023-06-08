@@ -1,4 +1,4 @@
-name: Docker Hu
+name: Docker Hub
 on:
   push:
     branches:
