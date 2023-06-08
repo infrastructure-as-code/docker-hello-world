@@ -9,8 +9,7 @@ on:
       - "[0-9]+.[0-9]+.[0-9]+"
 
 env:
-  #IMAGE_NAME: infrastructureascode/hello-world
-  IMAGE_NAME: vincetse/hello-world
+  IMAGE_NAME: infrastructureascode/hello-world
 
 jobs:
   check:
