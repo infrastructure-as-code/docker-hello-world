@@ -1,3 +1,4 @@
+name: GHCR
 on:
   push:
     branches:
@@ -127,6 +128,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,name=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }},push-by-digest=true,name-canonical=true,push=true
+          sbom: true
+          provenance: true
 
       - name: Export digest
         run: |
