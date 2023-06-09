@@ -1,5 +1,5 @@
-[![GHCR Build Status](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/ghcr.yml/badge.svg?branch=main)](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/ghcr.yml)
-[![Docker Hub Build Status](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/dockerhub.yml/badge.svg?branch=main)](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/dockerhub.yml)
+[![GHCR Build Status](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/ghcr.yml/badge.svg?branch=master)](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/ghcr.yml)
+[![Docker Hub Build Status](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/dockerhub.yml/badge.svg?branch=master)](https://github.com/infrastructure-as-code/docker-hello-world/actions/workflows/dockerhub.yml)
 
 
 # ghcr.io/infrastructure-as-code/hello-world
